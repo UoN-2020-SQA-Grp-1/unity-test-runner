@@ -182,10 +182,11 @@ fi
 xvfb-run --auto-servernum --server-args='-screen 0 640x480x24' \
     /opt/Unity/Editor/Unity \
       -projectPath "$UNITY_PROJECT_PATH" \
-      -batchmode
-      -debugCodeOptimization
-      -enableCodeCoverage
-      -coverageOptions generateHtmlReport;generateBadgeReport -quit
+      -batchmode \
+      -debugCodeOptimization \
+      -enableCodeCoverage \
+      -coverageOptions generateHtmlReport;generateBadgeReport \
+      -quit
 #
 # Exit
 #
