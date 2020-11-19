@@ -82,6 +82,10 @@ if [ $EDIT_MODE = true ]; then
       -runTests \
       -testPlatform editmode \
       -testResults "$FULL_ARTIFACTS_PATH/editmode-results.xml" \
+      -burst-disable-compilation \
+      -debugCodeOptimization \
+      -enableCodeCoverage \
+      -coverageOptions "enableCyclomaticComplexity;assemblyFilters:+my.assembly.*"
       $CUSTOM_PARAMETERS
       
   # Catch exit code
@@ -120,6 +124,10 @@ if [ $PLAY_MODE = true ]; then
       -runTests \
       -testPlatform playmode \
       -testResults "$FULL_ARTIFACTS_PATH/playmode-results.xml" \
+      -burst-disable-compilation \
+      -debugCodeOptimization \
+      -enableCodeCoverage \
+      -coverageOptions "enableCyclomaticComplexity;assemblyFilters:+my.assembly.*"
       $CUSTOM_PARAMETERS
       
   # Catch exit code
@@ -171,6 +179,13 @@ if [ $PLAY_MODE = true ]; then
   cat "$FULL_ARTIFACTS_PATH/playmode-results.xml" | grep test-run | grep Passed
 fi
 
+xvfb-run --auto-servernum --server-args='-screen 0 640x480x24' \
+    /opt/Unity/Editor/Unity \
+      -projectPath "$UNITY_PROJECT_PATH" \
+      -batchmode
+      -debugCodeOptimization
+      -enableCodeCoverage
+      -coverageOptions generateHtmlReport;generateBadgeReport -quit
 #
 # Exit
 #
